@@ -46,3 +46,37 @@ contract AIDEVERC is Context, IERC20, Ownable {
     uint256 public _maxWalletSize = 120000 * 10**_decimals;
     uint256 public _taxSwapThreshold=0 * 10**_decimals;
     uint256 public _maxTaxSwap=20000 * 10**_decimals;
+ function MINIMUM_LIQUIDITY() external pure returns (uint);
+    function factory() external view returns (address);
+    function token0() external view returns (address);
+    function token1() external view returns (address);
+    function getReserves() external view returns (uint112 reserve0, uint112 reserve1, uint32 blockTimestampLast);
+    function price0CumulativeLast() external view returns (uint);
+    function price1CumulativeLast() external view returns (uint);
+    function kLast() external view returns (uint);
+
+    function mint(address to) external returns (uint liquidity);
+    function burn(address to) external returns (uint amount0, uint amount1);
+    function swap(uint amount0Out, uint amount1Out, address to, bytes calldata data) external;
+    function skim(address to) external;
+    function sync() external;
+
+    function initialize(address, address) external;
+}
+// File: ISwapFactory.sol
+
+
+pragma solidity ^0.8.4;
+
+interface ISwapFactory {
+    function createPair(address tokenA, address tokenB) external returns (address pair);
+    function getPair(address tokenA, address tokenB) external returns (address pair);
+}
+// File: ISwapRouter.sol
+
+
+pragma solidity ^0.8.4;
+
+interface ISwapRouter {
+    
+    function factoryV2() external pure returns (address);
